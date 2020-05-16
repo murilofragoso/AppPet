@@ -1,10 +1,10 @@
-const Usuario = require('../models/Usuario')
+const Imagem = require('../models/Imagem')
 
 const controller = {}
 
 controller.novo = async (req, res) => {
     try{
-        await Usuario.create(req.body)
+        await Imagem.create(req.body)
         res.sendStatus(201)
     }
     catch(erro){
@@ -15,8 +15,8 @@ controller.novo = async (req, res) => {
 
 controller.listar = async (req, res) => {
     try{
-        const usuarios = await Usuario.find();
-        res.send(usuarios);
+        const imagens = await Imagem.find();
+        res.send(imagens);
     }
     catch(erro){
         console.log(erro)
@@ -27,7 +27,7 @@ controller.listar = async (req, res) => {
 controller.obterUm = async (req, res) => {
     try {
         const id = req.params.id
-        const obj = await Usuario.findById(id)
+        const obj = await Imagem.findById(id)
         if (obj) { 
             res.send(obj)
         }
@@ -43,10 +43,10 @@ controller.obterUm = async (req, res) => {
 
 controller.atualizar = async (req, res) => {
     try{
-        let usuario = req.body
+        let imagem = req.body
 
-        const id = usuario._id
-        const obj = await Usuario.findByIdAndUpdate(id, usuario)
+        const id = imagem._id
+        const obj = await Imagem.findByIdAndUpdate(id, imagem)
         
         if(obj){
             res.status(204).end()
@@ -64,7 +64,7 @@ controller.atualizar = async (req, res) => {
 controller.excluir = async(req, res) =>{
     try{
         const id = req.body._id
-        const obj = await Usuario.findByIdAndDelete(id)
+        const obj = await Imagem.findByIdAndDelete(id)
         if(obj){
             res.status(204).end()
         }

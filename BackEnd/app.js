@@ -6,6 +6,11 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var usuarioRouter = require('./routes/usuario');
+var tiposPetRouter = require('./routes/tiposPet');
+var petRouter = require('./routes/pet');
+var mensagemRouter = require('./routes/mensagem');
+var apoioRouter = require('./routes/apoio');
+var imagemRouter = require('./routes/imagem');
 
 var app = express();
 
@@ -21,5 +26,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/usuario', usuarioRouter);
+app.use('/tiposPet', tiposPetRouter);
+app.use('/pet', petRouter);
+app.use('/mensagem', mensagemRouter);
+app.use('/apoio', apoioRouter);
+app.use('/imagem', imagemRouter);
 
 module.exports = app;

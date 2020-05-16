@@ -1,10 +1,10 @@
-const Usuario = require('../models/Usuario')
+const Pet = require('../models/Pet')
 
 const controller = {}
 
 controller.novo = async (req, res) => {
     try{
-        await Usuario.create(req.body)
+        await Pet.create(req.body)
         res.sendStatus(201)
     }
     catch(erro){
@@ -15,8 +15,8 @@ controller.novo = async (req, res) => {
 
 controller.listar = async (req, res) => {
     try{
-        const usuarios = await Usuario.find();
-        res.send(usuarios);
+        const pets = await Pet.find().populate('tipo').populate('usuario');
+        res.send(pets);
     }
     catch(erro){
         console.log(erro)
@@ -27,7 +27,7 @@ controller.listar = async (req, res) => {
 controller.obterUm = async (req, res) => {
     try {
         const id = req.params.id
-        const obj = await Usuario.findById(id)
+        const obj = await Pet.findById(id)
         if (obj) { 
             res.send(obj)
         }
@@ -43,10 +43,10 @@ controller.obterUm = async (req, res) => {
 
 controller.atualizar = async (req, res) => {
     try{
-        let usuario = req.body
+        let pet = req.body
 
-        const id = usuario._id
-        const obj = await Usuario.findByIdAndUpdate(id, usuario)
+        const id = pet._id
+        const obj = await Pet.findByIdAndUpdate(id, pet)
         
         if(obj){
             res.status(204).end()
@@ -64,7 +64,7 @@ controller.atualizar = async (req, res) => {
 controller.excluir = async(req, res) =>{
     try{
         const id = req.body._id
-        const obj = await Usuario.findByIdAndDelete(id)
+        const obj = await Pet.findByIdAndDelete(id)
         if(obj){
             res.status(204).end()
         }
