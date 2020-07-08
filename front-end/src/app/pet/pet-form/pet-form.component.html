@@ -1,0 +1,36 @@
+<h1>{{ title }}</h1>
+
+<form class="std-form" #f="ngForm" (ngSubmit)="salvar(f)">
+    <mat-form-field>
+        <mat-label>Nome</mat-label>
+        <input matInput [(ngModel)]="pet.nome"
+            name="nome" required placeholder="informe o nome do pet">
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-select placeholder="Selecione o tipo" required [(ngModel)]="pet.tipo" name="tipo">
+           <mat-option *ngFor="let tipoPet of tiposPet" [value]="tipoPet._id">
+              {{tipoPet.especie}} {{tipoPet.cor}}
+           </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-select placeholder="Selecione o usuario" required [(ngModel)]="pet.usuario" name="usuario">
+           <mat-option *ngFor="let usuario of usuarios" [value]="usuario._id">
+              {{usuario.nome}}
+           </mat-option>
+        </mat-select>
+    </mat-form-field>    
+
+    <mat-toolbar class="form-buttons">
+        <mat-toolbar-row>
+           <button mat-raised-button type="submit" color="accent">
+              Salvar
+           </button>
+           <button mat-raised-button type="button" (click)="voltar(f)">
+              Voltar
+           </button>
+        </mat-toolbar-row>
+     </mat-toolbar>
+</form>

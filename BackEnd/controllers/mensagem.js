@@ -5,7 +5,7 @@ const controller = {}
 controller.novo = async (req, res) => {
     try{
         await Mensagem.create(req.body)
-        res.sendStatus(201)
+        res.status(201).send('');
     }
     catch(erro){
         console.log(erro)
@@ -73,6 +73,23 @@ controller.excluir = async(req, res) =>{
         }
     }
     catch(erro){
+        console.log(erro)
+        res.status(500).send(erro)
+    }
+}
+
+controller.mensagensUsuario = async(req, res) => {
+    try {
+        const id = req.params.id
+        const obj = await Mensagem.find({usuario: id})
+        if (obj) { 
+            res.send(obj)
+        }
+        else {
+            res.status(404).end()
+        }
+    }
+    catch (erro) {
         console.log(erro)
         res.status(500).send(erro)
     }

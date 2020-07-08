@@ -5,7 +5,7 @@ const controller = {}
 controller.novo = async (req, res) => {
     try{
         await Apoio.create(req.body)
-        res.sendStatus(201)
+        res.status(201).send('');
     }
     catch(erro){
         console.log(erro)

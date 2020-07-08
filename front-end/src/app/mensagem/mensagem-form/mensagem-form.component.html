@@ -1,0 +1,26 @@
+<h1>{{ title }}</h1>
+
+<form class="std-form" #f="ngForm" (ngSubmit)="salvar(f)">
+    <mat-form-field>
+        <mat-label>Texto</mat-label>
+        <input matInput [(ngModel)]="mensagem.texto"
+            name="texto" required placeholder="informe o texto da mensagem">
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Grau de felicidade</mat-label>
+        <input matInput [(ngModel)]="mensagem.grauFelicidade"
+            name="grauFelicidade" required placeholder="informe o grau de felicidade da mensagem">
+    </mat-form-field>
+
+    <mat-toolbar class="form-buttons">
+        <mat-toolbar-row>
+           <button mat-raised-button type="submit" color="accent">
+              Salvar
+           </button>
+           <button mat-raised-button type="button" (click)="voltar(f)">
+              Voltar
+           </button>
+        </mat-toolbar-row>
+     </mat-toolbar>
+</form>
