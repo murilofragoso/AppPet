@@ -7,7 +7,7 @@ controller.novo = async (req, res) => {
     let usuario = req.body;
 
     //Validando senhas
-    if(usuario.senha != usuario.confirmarsenha){
+    if(usuario.senha != usuario.confirmarSenha){
         res.status(400).send("Senhas não conferem")
         return;
     }
@@ -24,7 +24,7 @@ controller.novo = async (req, res) => {
         }
 
         await Usuario.create(usuario)
-        res.status(201).send('');
+        res.status(201).send('Usuário cadastrado com sucesso!');
     }
     catch(erro){
         console.log(erro)
