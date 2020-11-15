@@ -6,9 +6,23 @@ const controller = {}
 controller.novo = async (req, res) => {
     let usuario = req.body;
 
+    //Validando campos obrigatórios
+    if(!usuario.nome || !usuario.email || !usuario.senha || !usuario.confirmarSenha){
+        res.status(400).send("Todos os campos são obrigatórios")
+        return;
+    }
+    
     //Validando senhas
     if(usuario.senha != usuario.confirmarSenha){
         res.status(400).send("Senhas não conferem")
+        return;
+    }
+    
+    //Validando email
+    //Regex para validar e-mail
+    const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+    if(!emailRegex.test(usuario.email)){
+        res.status(400).send("E-mail inválido")
         return;
     }
 
