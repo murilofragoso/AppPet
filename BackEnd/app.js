@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -11,6 +13,7 @@ var petRouter = require('./routes/pet');
 var mensagemRouter = require('./routes/mensagem');
 var apoioRouter = require('./routes/apoio');
 var imagemRouter = require('./routes/imagem');
+var watsonRouter = require('./routes/api/watson')
 
 var app = express();
 
@@ -34,5 +37,6 @@ app.use('/pet', petRouter);
 app.use('/mensagem', mensagemRouter);
 app.use('/apoio', apoioRouter);
 app.use('/imagem', imagemRouter);
+app.use('/api/watson', watsonRouter);
 
 module.exports = app;
