@@ -1,5 +1,4 @@
 const express = require('express');
-const router = express.Router();
 const AssistantV2 = require('ibm-watson/assistant/v2');
 const {IamAuthenticator} = require('ibm-watson/auth')
 
@@ -13,37 +12,37 @@ const assistant = new AssistantV2({
     url: process.env.WATSON_ASSISTANT_URL
 })
 
-// GET /api/watson/session
-router.get("/session", async (req, res) => {
+const service = {}
+
+service.getSession = async () => {
     try{
         const session = await assistant.createSession({
             assistantId: process.env.WATSON_ASSISTAND_ID
         })
-        res.json(session['result']);
+        return session['result'].session_id;
     } catch (err) {
-        res.send("Therewas an error processing your request");
         console.log(err);
+        return null;
     }
-})
+}
 
-// POST /api/watson/message
-router.post("/message", async (req, res) => {
+service.postMensagem = async(sessionId, mensagem) => {
     payload = {
         assistantId: process.env.WATSON_ASSISTAND_ID,
-        sessionId: req.headers.session_id,
+        sessionId: sessionId,
         input:{
             message_type:"text",
-            text:req.body.input
+            text:mensagem
         }
     }
 
     try{
         const message = await assistant.message(payload);
-        res.json(message['result']);
+        return message['result'].output.generic[0].text;
     } catch (err) {
-        res.send("Therewas an error processing your request");
         console.log(err);
+        return null;
     }
-})
+}
 
-module.exports=router
+module.exports=service
