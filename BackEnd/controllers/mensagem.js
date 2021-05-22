@@ -5,7 +5,6 @@ const controller = {}
 
 controller.novo = async (req, res) => {
     try{
-        
         if (!req.body.texto) {
             res.status(400).send("Mensagem não encontrada")
             return;
@@ -164,8 +163,8 @@ async function avaliarMensagem(retornoWatson, usuario, sentimentoAnterior) {
 async function recuperarMensagemFeliz(usuario, retornoWatson){
     var mensagemRetorno = 'Poxa :( mas existem dias bons! Tente se lembrar dos bons momentos! como se sente, depois disso?';
     const mensagens = await Mensagem.find({usuario: usuario, grauFelicidade: 100});
-    const valorMaximo = mensagens.length;
-    if (valorMaximo > 0) {
+    const valorMaximo = mensagens.length - 1;
+    if (valorMaximo >= 0) {
         const indexAleatorio = Math.floor(Math.random() * (valorMaximo - 1)) + 1;
         mensagemRetorno = retornoWatson + " '" + mensagens[indexAleatorio].texto + "'? Tente se lembrar dos bons momentos! como se sente, depois disso?"
     }
